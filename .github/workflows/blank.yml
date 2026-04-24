@@ -17,12 +17,12 @@ jobs:
       fail-fast: false
       matrix:
         info:
-          - '{ "BOARD": "ESP32_GENERIC_S3",  "BOARD_VARIANT": "SPIRAM_OCT",  "FLASH": "16",  "DISPLAY": "st7789",  "INDEV":"" }'
+          #- '{ "BOARD": "ESP32_GENERIC_S3",  "BOARD_VARIANT": "SPIRAM_OCT",  "FLASH": "16",  "DISPLAY": "st7789",  "INDEV":"" }'
           - '{ "BOARD": "ESP32_GENERIC_S3",  "BOARD_VARIANT": "SPIRAM_OCT",  "FLASH": "16",  "DISPLAY": "st7789",  "INDEV":"ft6x36" }'
-          - '{ "BOARD": "ESP32_GENERIC_S3",  "BOARD_VARIANT": "SPIRAM_OCT",  "FLASH": "16",  "DISPLAY": "st7796",  "INDEV":"" }'
+          #- '{ "BOARD": "ESP32_GENERIC_S3",  "BOARD_VARIANT": "SPIRAM_OCT",  "FLASH": "16",  "DISPLAY": "st7796",  "INDEV":"" }'
           - '{ "BOARD": "ESP32_GENERIC_S3",  "BOARD_VARIANT": "SPIRAM_OCT",  "FLASH": "16",  "DISPLAY": "ili9341",  "INDEV":"" }'
-          - '{ "BOARD": "ESP32_GENERIC_S3",  "BOARD_VARIANT": "SPIRAM_OCT",  "FLASH": "8",   "DISPLAY": "ili9341", "INDEV":"ft6x36" }'
-          - '{ "BOARD": "ESP32_GENERIC_S3",  "BOARD_VARIANT": "SPIRAM_OCT",  "FLASH": "16",  "DISPLAY": "gc9a01",  "INDEV":"" }'
+          #- '{ "BOARD": "ESP32_GENERIC_S3",  "BOARD_VARIANT": "SPIRAM_OCT",  "FLASH": "8",   "DISPLAY": "ili9341", "INDEV":"ft6x36" }'
+          #- '{ "BOARD": "ESP32_GENERIC_S3",  "BOARD_VARIANT": "SPIRAM_OCT",  "FLASH": "16",  "DISPLAY": "gc9a01",  "INDEV":"" }'
     
     steps:
       - name: Checkout
@@ -50,7 +50,7 @@ jobs:
             echo "python3 make.py esp32 BOARD=${{fromJSON(matrix.info).BOARD}} BOARD_VARIANT=${{fromJSON(matrix.info).BOARD_VARIANT}} --flash-size=${{fromJSON(matrix.info).FLASH}} DISPLAY=${{fromJSON(matrix.info).DISPLAY}} INDEV=${{fromJSON(matrix.info).INDEV}}"
             python3 make.py esp32 BOARD=${{fromJSON(matrix.info).BOARD}} BOARD_VARIANT=${{fromJSON(matrix.info).BOARD_VARIANT}} --flash-size=${{fromJSON(matrix.info).FLASH}} DISPLAY=${{fromJSON(matrix.info).DISPLAY}} INDEV=${{fromJSON(matrix.info).INDEV}}
           fi
-          echo "FIREMWARE=LVGL_MicroPython-${{fromJSON(matrix.info).BOARD}}_${{fromJSON(matrix.info).BOARD_VARIANT}}_N${{fromJSON(matrix.info).FLASH}}_${{fromJSON(matrix.info).DISPLAY}}_${{fromJSON(matrix.info).INDEV}}-$(date +\"%Y%m%d\").bin" >> $GITHUB_ENV
+          echo "FIREMWARE=LVGL_MicroPython-${{fromJSON(matrix.info).BOARD}}_${{fromJSON(matrix.info).BOARD_VARIANT}}_N${{fromJSON(matrix.info).FLASH}}_${{fromJSON(matrix.info).DISPLAY}}_${{fromJSON(matrix.info).INDEV}}_$(date +\"%Y%m%d\").bin" >> $GITHUB_ENV
           echo "OUTPUT=${{env.LVGL}}/build" >> $GITHUB_ENV
           echo "FIREMWARE_ORIGIN=lvgl_micropy_${{fromJSON(matrix.info).BOARD}}-${{fromJSON(matrix.info).BOARD_VARIANT}}-${{fromJSON(matrix.info).FLASH}}.bin" >> $GITHUB_ENV
           echo "status=success" >> $GITHUB_OUTPUT
